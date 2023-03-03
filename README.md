@@ -1,5 +1,5 @@
-# WoordPress CRM based on facebook leads
-This pugin created for gathering leads from facebook and working on it with calendly, google spreadsheet and more.
+# WoordPress Plugin for synchronizing files from FTP/SFTP to WordPress media Directory on a defined interval.
+This plugin is created for syncing files from FTP/SFTP remote location to wordpress media directory. This is public and anyone can use irt under MIT licence 2.
 ### Hi, I'm Remal Mahmud, currently working on something freelance projects 😉
 ### Connect with me:
 
