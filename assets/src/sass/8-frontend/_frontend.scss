@@ -1,0 +1,500 @@
+/* Including parts. */
+@import "navmenu";
+// @import "elementor";
+@import "icons";
+@import "map";
+
+$primaryColor: #FFCF02;
+$primaryColorb4: #ffd102b4;
+$primaryColor1f: #FFCF021f;
+$primaryColor0d: #ffcf020d;
+
+/* General Settings */
+.modal-backdrop.fade.show {
+  display: none;
+}
+.input-group {
+  span[id^="basic-editopen-"] {border-radius: 0 5px 5px 0 !important;}
+  &.input-group .input-group-text[id^=basic-pre-addons] {
+    @include mq($until: 500px) {
+      display: none;
+    }
+    @include mq($until: 550px) {
+      max-width: 180px;
+      overflow: hidden;
+    }
+  }
+}
+.direct-download-btn {
+  display: block;
+  width: 50px;
+  height: 30px;
+  svg.icon-32 {
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin: auto;
+    margin-top: 3px;
+  }
+}
+.input-group-text.password-toggle:not(.showing) .shown {display: none;}
+.input-group-text.password-toggle.showing .hiden {display: none;}
+
+div.wpforms-container-full .wpforms-form .wpforms-field {
+  margin-left: auto;
+  padding: 10px;
+  input, select {
+    min-width: 100%;
+    width: 100%;
+    border-radius: 5px !important;
+    border: .5px solid #8d8d8d !important;
+    padding: 5px 10px;
+    margin: auto;
+  }
+  textarea{
+    height: 200px;
+  }
+  .wpforms-field-label {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-decoration: none;
+  }
+  &.wpforms-field-name {
+    width: 100%;
+    display: block;
+    .wpforms-field-row {
+      display: block;
+      min-width: 100%;
+      // .wpforms-field-row-block {
+      //   padding: 10px !important;
+      //   margin-left: 0 !important;
+      // }
+    }
+  }
+}
+.profile-image-preview {
+  height: 0;
+  opacity: 0;
+  width: 200px;
+  margin: auto;
+  overflow: hidden;
+  visibility: hidden;
+  transition: all .7s ease;
+  &.active {
+    height: 200px;
+    opacity: 1;
+    visibility: visible;
+    img {
+      height: 100%;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 2px 0 5px #ddd;
+    }
+  }
+}
+.fwp-body {
+  .card .card-header {
+    align-items: center;
+  }
+}
+
+
+.fwp-body {
+  div.wpforms-container-full {
+    .wpforms-form {
+      .wpforms-field {
+        align-items: center;
+        margin-bottom: 25px;
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: calc(-1 * var(--bs-gutter-y));
+        // margin-right: calc(-.5 * var(--bs-gutter-x));
+        // margin-left: calc(-.5 * var(--bs-gutter-x));
+        .wpforms-field-label {
+          font-size: 22px;
+          margin-left: 10px;
+        }
+        &.wpforms-field-name {
+          margin-right: 0 !important;
+          &:first-child {
+            margin-bottom: 0;
+          }
+          .wpforms-field-row-block {
+            &.wpforms-one-half {
+              &:first-child {
+                padding-left: 0 !important;
+              }
+              &:last-child {
+                padding-right: 0 !important;
+              }
+            }
+          }
+        }
+      }
+      .wpforms-field-stripe-credit-card-cardnumber,
+      .wpforms-field input, .wpforms-field select {
+        border-radius: 2px;
+        background-color: #F5F7F8;
+        width: 100%;
+        height: 68px;
+        border: solid 2px transparent !important;
+        transition: 0.3s all linear;
+        padding-left: 20px;
+        font-size: 15px;
+        color: #898989;
+      }
+      .wpforms-field {
+        input:focus {
+          outline: none;
+          border-color: #008F9C !important;
+          background-color: #fff;
+        }
+        // &.wpforms-field-name .wpforms-field-row .wpforms-field-row-block {
+        //   width: 50%;
+        // }
+      }
+      .wpforms-one-half {
+        @include mq($from: 600px) {
+          width: 48%;
+        }
+      }
+      .wpforms-field-row {
+        width: 100%;
+        max-width: unset;
+      }
+      .wpforms-field-stripe-credit-card-cardnumber {
+        height: 40px;
+      }
+      .wpforms-field {
+        select {
+          padding-right: 10px;
+          -moz-appearance: none;
+          -webkit-appearance:none;
+          appearance: none;
+        }
+        &.wpforms-field-payment-single {
+          display: block !important;
+          &.wpforms-single-item-price .wpforms-price {
+            font-size: 18px;
+            font-weight: 500;
+            color: #848C95;
+          }
+          .wpforms-single-item-price {
+            margin: auto;margin-top: 20px;
+          }
+          .wpforms-single-item-price .wpforms-price {
+            font-size: 30px;
+          }
+        }
+        &.wpforms-field-pagebreak {
+          text-align: center;
+          display: block;
+          .wpforms-clear {
+            text-align: center;
+            .wpforms-page-next {
+              background-color: #72b239;
+              color: #fff;
+              font-size: 1.5rem;
+              padding: 20px 30px;
+              border-radius: 15px;
+              &:after {
+                content: "";
+                margin-left: 0px;
+                opacity: 0.5;
+                transition: all .7s ease;
+              }
+              &:hover:after {
+                content: "→";
+                opacity: 1;
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+        &.wpforms-field-address {
+          display: block;
+        }
+        .wpforms-field-row {
+          max-width: unset;
+        }
+        @include mq($until: 600px) {
+          margin: auto;
+        }
+      }
+      textarea.wpforms-field-large {
+        border: .5px solid #eee;
+        border-radius: 5px;
+        border: none;
+      }
+      .wpforms-error-container {
+        padding: 10px;
+        background: #ffdf4df0;
+        margin-bottom: 20px;
+        border: none;
+        font-size: 18px;
+        color: #333;
+        font-weight: bolder;
+        -webkit-text-stroke: .6px #333;
+        -webkit-text-stroke-width: medium;
+      }
+      .wpforms-field-stripe-credit-card {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+    .wpforms-submit-container {
+      text-align: center;
+      .wpforms-submit {
+        min-width: 200px;
+        margin-bottom: 50px;
+        background-color: #72b239;
+        color: #fff;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        & + img {
+          position: absolute;
+          top: 20px;
+        }
+      }
+    }
+    .wpforms-field-container .wpforms-page {
+      max-width: 95vw;
+      margin: auto;
+      position: relative;
+      display: block;
+      padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    .container .container_inner.page_container_inner, .full_page_container_inner {
+      padding: 10px 0 0;
+      margin: auto;
+      width: auto;
+      max-width: 90vw;
+    }
+  }
+  div.wpforms-container-full .wpforms-form .wpforms-field.wpforms-field-name .wpforms-field-row .wpforms-field-row-block {
+    width: 100% !important;
+  }
+  .fwp-body .wpforms-container-full .wpforms-form .wpforms-one-half {
+    width: 100%;
+    margin: auto;
+  }
+  .fwp-body .wpforms-container-full .wpforms-form .wpforms-one-half:nth-child(2) {
+    margin-top: 20px;
+  }
+}
+
+.fwp-body {
+  .content {
+    padding-bottom: 0 !important;
+    .content_inner {
+      background: #ffffff9e;
+      .container.content-inner {
+        border-radius: 10px;
+        background: none;
+        .row > .col-lg-3 {
+          @include mq($until: 992px) {
+            order: 1;
+            margin-top: 20px;
+            // display: flex;
+          }
+        }
+      }
+    }
+  }
+  .main-content {
+    .iq-navbar-header {
+      height: 215px;
+    }
+    .nav-pills {
+      .nav-link {
+        font-size: 15px;
+        color: #333;
+        &:hover, &:focus, &:active {
+          color: #333;
+        }
+      }
+      .nav-link.active, .show > .nav-link {
+        color: #333;
+        background-color: $primaryColor;
+      }
+    }
+  }
+  &.no-header-bg {
+    .content {
+      margin-top: -50px;
+      padding: unset;
+      background: #ffffff9e;
+      .content_inner {
+        background: none;
+        padding-bottom: 80px;
+        .card-body .btn-logout-confirm {
+          @include mq($until: 550px) {
+            width: 100%;
+            margin-top: 5px;
+            border-radius: 10px;
+          }
+        }
+      }
+      .main-content {
+        .iq-navbar-header {
+          height: 150px;
+        }
+      }
+      .container {
+        background: none;
+        &.content-inner {
+          .row > div > .card.h-12 {
+            margin-bottom: 2rem;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+  
+  .pause-unpause-subscription-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .btn-check:active+.btn.btn-light-primary, .btn-check:checked+.btn.btn-light-primary, .btn.btn-light-primary.active, .btn.btn-light-primary.show, .btn.btn-light-primary:active:not(.btn-active), .btn.btn-light-primary:focus:not(.btn-active), .btn.btn-light-primary:hover:not(.btn-active), .show>.btn.btn-light-primary,
+  .btn.btn-primary, .btn-check:active+.btn.btn-primary, .btn-check:checked+.btn.btn-primary, .btn.btn-primary.active, .btn.btn-primary.show, .btn.btn-primary:active:not(.btn-active), .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .show>.btn.btn-primary {
+    color: #333;
+    border-color: $primaryColor;
+    background-color: $primaryColor;
+    &:hover, &:active, &:focus {
+      border-color: $primaryColor;
+      background-color: $primaryColor !important;;
+    }
+  }
+  .btn.btn-light-primary {
+    color: $primaryColor;
+    border-color: $primaryColor1f;
+    background-color: $primaryColor1f;
+    &:hover, &:active {
+      border-color: $primaryColor;
+      background-color: $primaryColor !important;
+    }
+  }
+  .custom-table-effect .table tbody tr:after {
+    background: $primaryColor1f;
+  }
+  .custom-table-effect .table tbody tr:hover:after {
+    background: $primaryColor;
+  }
+  .dropzone {
+    background-color: $primaryColor1f;
+    border-color: $primaryColor;
+    .dz-preview.dz-file-preview .dz-image {
+      background: $primaryColor1f;
+    }
+  }
+  .form-select.form-select-solid {
+    background: $primaryColor0d;
+    border-color: $primaryColor0d;
+  }
+  .text-primary {
+    color: $primaryColor  !important;
+  }
+  .bg-primary {
+    background: $primaryColor  !important;
+  }
+  .input-group span[id^="basic-editopen-"] {
+    i.fa-check {
+      color: $primaryColor;
+    }
+  }
+
+
+
+  // Toast
+  #igho-toast-container > div {
+    &.toast info {
+      background-color: $primaryColorb4;
+      border-color: $primaryColor;
+    }
+    @include mq($until: 480px) {
+      width: auto;
+    }
+  }
+  // .swal2-container.swal2-center > .swal2-popup[aria-describedby="swal2-html-container"] {
+  //   width: auto;
+  // }
+  .swal2-actions {
+    .swal2-styled.swal2-confirm {
+      color: #333;
+      background-color: $primaryColor;
+    }
+    .swal2-loader {
+      background: none;
+      border-color: none;
+      border-top-color: $primaryColor;
+      border-bottom-color: $primaryColor;
+    }
+  }
+}
+
+/**
+Registration Form Design
+*/
+.fwp-body {
+  div.wpforms-container-full .wpforms-form label.wpforms-error {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  .input-group.input-group-solid .form-control+.input-group-text {
+    border-left-color: transparent;
+  }
+  .input-group-text {
+    border-color: transparent;
+    &:first-child {
+      padding-right: 5px;
+      + input {
+        border-left-color: transparent;
+        @include mq($from: 500px) {
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+  .btn-outline-warning {
+    color: #333;
+    border-color: $primaryColor;
+    background-color: $primaryColor;
+  }
+  .upload-icone {
+    height: 35px;
+    width: 35px;
+  }
+  .profile-img-edit input.file-upload.profile-image-upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: #333;
+    opacity: 0;
+    visibility: visible;
+    display: block;
+  }
+  .nav-pills .nav-item {
+    @include mq($until: 550px) {
+      width: 100%;
+      background: #D3D3D3;
+      margin-right: auto;
+      margin-top: 5px;
+      border-radius: 10px;
+    }
+  }
+}
