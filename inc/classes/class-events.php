@@ -17,7 +17,7 @@ class Events {
 
 	}
 	protected function setup_hooks() {
-    add_filter( 'cron_schedules', [ $this, 'add_custom_intervals' ], 99, 1 );
+    add_filter( 'cron_schedules', [ $this, 'add_custom_intervals' ], 10, 1 );
     // register_activation_hook( FTPFILESYNC_PROJECT__FILE__, [ $this, 'register_activation_hook' ] );
     register_deactivation_hook( FTPFILESYNC_PROJECT__FILE__, [ $this, 'register_deactivation_hook' ] );
     add_action( 'wp', [ $this, 'wp_schedule_event' ], 10, 0 );
@@ -43,6 +43,9 @@ class Events {
    */
   public function add_custom_intervals( $schedules ) {
     switch( apply_filters( 'futurewordpress/project/system/getoption', 'ftp-interval', 'hourly' ) ) {
+      case '30sec':
+        $schedules[ '30sec' ] = isset( $schedules[ '30sec' ] ) ? $schedules[ '30sec' ] : ['interval' => 30, 'display' => __( 'Every 30 Sec.', 'ftp-file-synchronization' )];
+        break;
       case '5mins':
         $schedules[ '5mins' ] = isset( $schedules[ '5mins' ] ) ? $schedules[ '5mins' ] : ['interval' => 300, 'display' => __( 'Every 5 Minutes', 'ftp-file-synchronization' )];
         break;

@@ -106,7 +106,7 @@ class Menus {
 			'page_title'					=> __( 'FTP Configuration.', 'ftp-file-synchronization' ),
 			'menu_title'					=> __( 'FTP Config', 'ftp-file-synchronization' ),
 			'role'								=> 'manage_options',
-			// 'slug'								=> $this->plugin_slug,
+			'slug'								=> 'ftp-file-synchronization',
 			'page_header'					=> __( 'FTP/SFTP Configuration.', 'ftp-file-synchronization' ),
 			'page_subheader'			=> __( 'Setup your FTP or SFTP login information and make sure you\'ve inserted all informaton correctly, specially directory path.', 'ftp-file-synchronization' ),
 			'no_password'					=> __( 'A password is required.', 'ftp-file-synchronization' ),
@@ -124,9 +124,16 @@ class Menus {
 				[
 					'id' 						=> 'ftp-enable',
 					'label'					=> __( 'Enable', 'ftp-file-synchronization' ),
-					'description'		=> __( 'Mark to enable all FTP/Sftp functionalities..', 'ftp-file-synchronization' ),
+					'description'		=> __( 'Mark to enable all FTP/Sftp functionalities', 'ftp-file-synchronization' ),
 					'type'					=> 'checkbox',
 					'default'				=> true
+				],
+				[
+					'id' 						=> 'ftp-isftp',
+					'label'					=> __( 'Is SFTP', 'ftp-file-synchronization' ),
+					'description'		=> __( 'Mark if it is SFTP connection. Make sure you\'ve enabled SSH2 php extension from cpanel. Without enabling SSH2, SFTP won\'t work on your system and may cause fatal error. FYI, easily to understand SSH2 is encryption system, by this encryption, SFTP encrypt files and then transfers are secured. It won\'t work on localhost. Cause SSH2 is not php buildin library.', 'ftp-file-synchronization' ),
+					'type'					=> 'checkbox',
+					'default'				=> false
 				],
 				[
 					'id' 						=> 'ftp-server',
@@ -161,7 +168,7 @@ class Menus {
 					'label'					=> __( 'Local Directory', 'ftp-file-synchronization' ),
 					'description'		=> sprintf( __( 'The directory path where file should store. This directory path should be valid, mistake free and from root directory. Such as %s. Leave it blank if you want to use WordPress media library folder. On that case, file will be uploaded on %s.', 'ftp-file-synchronization' ), '<code>/home/example/public_html/wp-content/uploads/somefolder</code>', '<code>' . apply_filters( 'futurewordpress/project/filesystem/uploaddir', false ) . '</code>' ),
 					'type'					=> 'text',
-					'default'				=> ABSPATH
+					'default'				=> ''
 				],
 				[
 					'id' 						=> 'ftp-interval',
@@ -170,6 +177,7 @@ class Menus {
 					'type'					=> 'select',
 					// 'default'				=> 'hourly',
 					'options'				=> [
+						'30sec'									=> __( 'Every 30 Sec.', 'ftp-file-synchronization' ),
 						'5mins'									=> __( 'Every 5 Minutes', 'ftp-file-synchronization' ),
 						'hourly'								=> __( 'Hourly', 'ftp-file-synchronization' ),
 						'2hours'								=> __( 'Every Two Hours', 'ftp-file-synchronization' ),
@@ -187,6 +195,29 @@ class Menus {
 					'description'		=> __( 'The Media directory name, using this name you provide will create a new direcotry on media fiolder and then FTP files will sync on it.', 'ftp-file-synchronization' ),
 					'type'					=> 'text',
 					'default'				=> 'sync'
+				],
+			]
+		];
+		$args['log'] 		= [
+			'title'							=> __( 'FTP Logs', 'ftp-file-synchronization' ),
+			'description'				=> __( 'FTP/SFTP logs could be control here. You\'ve to clean manually.', 'ftp-file-synchronization' ),
+			'fields'						=> [
+				[
+					'id' 						=> 'log-enable',
+					'label'					=> __( 'Enable', 'ftp-file-synchronization' ),
+					'description'		=> __( 'Mark to enable logs for FTP/Sftp.', 'ftp-file-synchronization' ),
+					'type'					=> 'checkbox',
+					'default'				=> true
+				],
+				[
+					'id' 						=> 'log-ftp',
+					'label'					=> __( 'FTP Logs', 'ftp-file-synchronization' ),
+					'description'		=> __( 'Logs should be remove by custom for every day.', 'ftp-file-synchronization' ),
+					'type'					=> 'textarea',
+					'default'				=> '',
+					'attr'					=> [
+						// 'data-codemirror'		=> 'logs'
+					]
 				],
 			]
 		];

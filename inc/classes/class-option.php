@@ -39,6 +39,7 @@ class Option {
 
 		// Add settings link to plugins page
 		add_filter( 'plugin_action_links_' . plugin_basename( $this->file ) , array( $this, 'add_settings_link' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ], 10, 1 );
 	}
 	/**
 	 * Initialise settings
@@ -100,7 +101,7 @@ class Option {
 	public function get_options() {
 		$options = get_option($this->general->slug);
 
-		if ( !$options && is_array( $this->settings ) ) {
+		if ( ! $options && is_array( $this->settings ) ) {
 			$options = Array();
 			foreach( $this->settings as $section => $data ) {
 				foreach( $data['fields'] as $field ) {
@@ -119,6 +120,8 @@ class Option {
 	 * @return void
 	 */
 	public function register_settings() {
+		// print_r( $this->options );
+		// wp_die();
 		if( is_array( $this->settings ) ) {
 
 			register_setting( $this->general->slug, $this->general->slug, array( $this, 'validate_fields' ) );
@@ -155,19 +158,15 @@ class Option {
 
 		$option_name = $this->general->slug ."[". $field['id']. "]";
 
-		$field[ 'default' ] = isset( $field[ 'default' ] ) ? $field[ 'default' ] : '';
-		$data = (isset($this->options[$field['id']])) ? $this->options[$field['id']] : $field[ 'default' ];
+		$field[ 'default' ] = isset( $field[ 'default' ] ) ? $field[ 'default' ] : false;
+		$field['placeholder'] = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
+		$field['attr'] = isset( $field['attr'] ) ? $field['attr'] : [];
+		$data = isset( $this->options[ $field[ 'id' ] ] ) ? $this->options[ $field[ 'id' ] ] : $field[ 'default' ];
+		
 
 		switch( $field['type'] ) {
 
-			case 'text':
-			case 'email':
-			case 'password':
-			case 'number':
-			case 'date':
-			case 'time':
-			case 'color':
-			case 'url':
+			case 'text':case 'email':case 'password':case 'number':case 'date':case 'time':case 'color':case 'url':
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . $field['type'] . '" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="' . $data . '"' . $this->attributes( $field ) . '/>' . "\n";
 			break;
 
@@ -180,10 +179,8 @@ class Option {
 			break;
 
 			case 'checkbox':
-				$checked = '';
-				if( ( $data && 'on' == $data ) || $field[ 'default' ] == true ) {
-					$checked = 'checked="checked"';
-				}
+				// || ( ! isset($this->options[ $field[ 'id' ] ] ) && $field[ 'default' ] == true )
+				$checked = ( isset( $this->options[ $field[ 'id' ] ] ) && 'on' == $this->options[ $field[ 'id' ] ] ) ? 'checked="checked"' : '';
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . $field['type'] . '" name="' . esc_attr( $option_name ) . '" ' . $checked . ' ' . $this->attributes( $field ) . '/>' . "\n";
 			break;
 
@@ -334,6 +331,20 @@ class Option {
 			})
 
 			triggers.eq(0).click();
+
+			document.querySelectorAll( 'textarea[data-codemirror]' ).forEach( ( e ) => {
+				if( typeof CodeMirror !== 'undefined' ) {
+					window.editor = CodeMirror.fromTextArea( e, {
+						mode: "markdown",
+						lineNumbers: true,
+						lineWrapping: true,
+						extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
+						foldGutter: true,
+						gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+					});
+					editor.foldCode(CodeMirror.Pos(11, 0));
+				}
+			} );
 		});
 		</script>
 	<?php
@@ -345,5 +356,15 @@ class Option {
 			$html .= $attr . '="' . $value . '" ';
 		}
 		return $html;
+	}
+	public function admin_enqueue_scripts( $hook ) {
+		if( 'settings_page_ftp-file-synchronization' == $hook ) {
+			// Enqueue the CodeMirror script
+			wp_enqueue_script('codemirror', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js', array('jquery'), '5.62.0', true);
+			// Enqueue the CodeMirror CSS file
+			wp_enqueue_style('codemirror-css', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css', array(), '5.62.0');
+			// Enqueue the CodeMirror theme CSS file (choose a theme from https://codemirror.net/demo/theme.html)
+			wp_enqueue_style('codemirror-theme', 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/material-darker.min.css', array('codemirror-css'), '5.62.0');
+		}
 	}
 }
